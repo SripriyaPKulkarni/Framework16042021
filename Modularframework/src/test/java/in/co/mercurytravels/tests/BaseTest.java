@@ -80,7 +80,15 @@ public class BaseTest {
 	@BeforeSuite
 	public void preconfig(){
 		
-		reportFileName=String.format("%s/reports/MercuryTravelsTestReports-%s.html", currentWorkingDirectory,executionStartDate);
+		initializeReports();
+		
+		
+		
+	}
+	
+	private void initializeReports() {
+		
+        reportFileName=String.format("%s/reports/MercuryTravelsTestReports-%s.html", currentWorkingDirectory,executionStartDate);
 		
 		htmlReporter=new ExtentHtmlReporter(reportFileName);
 		
@@ -88,13 +96,38 @@ public class BaseTest {
 		extent=new ExtentReports();
 		
 		extent.attachReporter(htmlReporter);
-		
 	}
-	
+
 	@BeforeTest
 	public void setUp() throws Exception{
 		
-		extentTest=extent.createTest("Setup pre requisite");
+		invokeBrowser();
+		
+		getDriverInstance();
+		
+		initializeApplicationPages();
+		
+		initializeScreenshotVariable();	
+	}
+	
+	private void initializeScreenshotVariable() {
+		// TODO Auto-generated method stub
+		screenshotControl=new ScreenShotControl(driver);
+	}
+
+	private void initializeApplicationPages() {
+		// TODO Auto-generated method stub
+		homePage=new HomePage(driver);
+	}
+
+	private void getDriverInstance() {
+		// TODO Auto-generated method stub
+		driver=cmnDriver.getDriver();
+	}
+
+	private void invokeBrowser() throws Exception {
+		
+extentTest=extent.createTest("Setup pre requisite");
 		
 		
 		
@@ -119,22 +152,22 @@ public class BaseTest {
 		url=configProperties.getProperty("url");
         cmnDriver.navigateToFirstUrl(url);
 		
-		driver=cmnDriver.getDriver();
+	}
+
+	@AfterTest
+	public void cleanUp() throws Exception{
 		
-		homePage=new HomePage(driver);
-		
-		screenshotControl=new ScreenShotControl(driver);
-		
+		closeAllBrowserInstances();
 		
 	}
 	
-	@AfterTest
-	public void cleanUp() throws Exception{
+	private void closeAllBrowserInstances() throws Exception {
+		// TODO Auto-generated method stub
 		extentTest=extent.createTest("Cleanup");
 		extentTest.log(Status.INFO, "Cleanup activities");
 		cmnDriver.closeAllBrowsers();
 	}
-	
+
 	@AfterSuite
 	public void postCleanUp(){
 		extent.flush();
