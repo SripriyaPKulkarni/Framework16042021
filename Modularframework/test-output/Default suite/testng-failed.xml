@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test thread-count="5" name="Default test(failed)">
+    <classes>
+      <class name="in.co.mercurytravels.tests.MercuryTravelTestCases">
+        <methods>
+          <include name="postCleanUp"/>
+          <include name="cleanUp"/>
+          <include name="preconfig"/>
+          <include name="verifyLuxuryRailslink"/>
+          <include name="verifyUserLoginwithCorrectCredentials"/>
+          <include name="setUp"/>
+          <include name="afterMethod"/>
+        </methods>
+      </class> <!-- in.co.mercurytravels.tests.MercuryTravelTestCases -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->
